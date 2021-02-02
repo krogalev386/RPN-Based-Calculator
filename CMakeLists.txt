@@ -1,0 +1,7 @@
+project(rpn_based_calculator)
+set(SOURCE main.cpp)
+set(LIB rpn_calculator.cpp)
+set(HEADER rpn_calculator.h)
+add_library(rpn_calculator STATIC ${LIB})
+add_executable(main.out ${SOURCE})
+target_link_libraries(main.out rpn_calculator)
