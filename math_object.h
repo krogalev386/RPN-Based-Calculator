@@ -25,7 +25,13 @@ public:
 class operation : public math_object {
 public:
     enum Op {plus, minus, prod, divis} oper;
-    operation(Op oper):oper(oper) {}
+    int precedence;
+    operation(Op oper):oper(oper) {
+        if ((oper == prod) || (oper == divis))
+            precedence = 2;
+        else
+            precedence = 1; 
+    }
 
     virtual ~operation() {};
 
@@ -45,9 +51,9 @@ public:
 
 
 class bracket : public math_object {
+public:
     enum Perpose {close, open};
     Perpose p;
-public:
     bracket(const std::string & str){
         if (str == ")") { p = close; }
         else if (str == "(") { p = open; }
