@@ -1,4 +1,5 @@
 #include "reader.h"
+#include <iostream>
 
 void reader::read(const std::string str){
  
@@ -9,7 +10,7 @@ void reader::read(const std::string str){
     std::string tmp;
 
     while (ss >> tmp){
-
+        
         std::unique_ptr<math_object> object;
 
         if (tmp == "+"){
@@ -20,6 +21,10 @@ void reader::read(const std::string str){
             object = std::make_unique<operation>(operation::prod);
         } else if (tmp == "/") {
             object = std::make_unique<operation>(operation::divis);
+        } else if (tmp == "(") {
+            object = std::make_unique<bracket>(bracket("("));
+        } else if (tmp == ")") {
+            object = std::make_unique<bracket>(bracket(")"));
         } else {
             object = std::make_unique<number>(std::stod(tmp));
         }

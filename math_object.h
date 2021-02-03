@@ -52,11 +52,11 @@ public:
 
 class bracket : public math_object {
 public:
-    enum Perpose {close, open};
-    Perpose p;
+    enum Perpose {close, open} p;
+    //Perpose p;
     bracket(const std::string & str){
         if (str == ")") { p = close; }
         else if (str == "(") { p = open; }
     }
-    virtual ~bracket() = 0;
+    virtual ~bracket() {};
 };

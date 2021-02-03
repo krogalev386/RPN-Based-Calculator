@@ -14,6 +14,6 @@ public:
     translator(){};
     ~translator(){};
 
-    void infix_to_rpn(std::queue<std::unique_ptr<math_object>>& input_queue);
+    void infix_to_rpn(std::queue<std::unique_ptr<math_object>> input_queue);
     std::queue<std::unique_ptr<math_object>> get_rpn_queue();
 };
