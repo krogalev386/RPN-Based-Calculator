@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <queue>
+#include <regex>
 #include "math_object.h"
 
 class reader {

@@ -3,10 +3,30 @@
 
 void reader::read(const std::string str){
  
+    std::regex regexp("(\\(-[0-9]+\\.?[0-9]*\\))|([0-9]+\\.?[0-9]*)|([\\+\\-\\*\\/]|[\\(\\)])");
+
+    std::regex regneg("\\(\\-[0-9]+\\.?[0-9]*\\)");
+    
+    std::string outstr = "";
+
+    // add spaces
+    for (auto it = std::sregex_iterator(str.begin(), str.end(), regexp); 
+         it != std::sregex_iterator(); it++) { 
+        std::smatch match; 
+        match = *it; 
+        if (std::regex_search(match.str(0), regneg)){
+            std::string tmp = match.str(0);
+            tmp = tmp.substr(1, tmp.size()-2);
+            outstr += tmp + std::string(" ");
+        }
+        else
+            outstr += match.str(0) + std::string(" ");
+    }  
+
     while(!internal_queue.empty())
         internal_queue.pop();
 
-    std::stringstream ss(str);
+    std::stringstream ss(outstr);
     std::string tmp;
 
     while (ss >> tmp){

@@ -53,8 +53,10 @@ void translator::infix_to_rpn(std::queue<std::unique_ptr<math_object>> input_que
                     if ((!operator_stack.empty()) && (dynamic_cast<bracket*>(operator_stack.top().get())))
                         top_bracket = dynamic_cast<bracket*>(operator_stack.top().get());
                 }
-                if ((!operator_stack.empty()) && (dynamic_cast<bracket*>(operator_stack.top().get())->p == bracket::open)){
-                    operator_stack.pop();
+                if ((!operator_stack.empty()) && (dynamic_cast<bracket*>(operator_stack.top().get()))){
+                    br = dynamic_cast<bracket*>(operator_stack.top().get());
+                    if (br->p == bracket::open)
+                        operator_stack.pop();
                 }
             }
         }

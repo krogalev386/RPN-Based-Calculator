@@ -4,7 +4,6 @@
 class math_object {
 public:
     virtual void f(){};
-    virtual ~math_object(){};
 };
 
 class number : public math_object {
@@ -33,8 +32,6 @@ public:
             precedence = 1; 
     }
 
-    virtual ~operation() {};
-
     number apply_operation(const number & n1, const number & n2){
         if (oper == plus) {
             return number(n1.getNumber() + n2.getNumber());
@@ -53,10 +50,8 @@ public:
 class bracket : public math_object {
 public:
     enum Perpose {close, open} p;
-    //Perpose p;
     bracket(const std::string & str){
         if (str == ")") { p = close; }
         else if (str == "(") { p = open; }
     }
-    virtual ~bracket() {};
 };
