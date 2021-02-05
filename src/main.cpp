@@ -1,7 +1,7 @@
-#include "math_object.h"
-#include "rpn_calculator.h"
-#include "reader.h"
-#include "translator.h"
+#include "../include/math_object.h"
+#include "../include/rpn_calculator.h"
+#include "../include/reader.h"
+#include "../include/translator.h"
 #include <iostream>
 #include <stack>
 #include <regex>

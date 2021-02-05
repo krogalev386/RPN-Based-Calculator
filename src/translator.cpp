@@ -1,4 +1,4 @@
-#include "translator.h"
+#include "../include/translator.h"
 #include <iostream>
 
 void translator::infix_to_rpn(std::queue<std::unique_ptr<math_object>> input_queue){

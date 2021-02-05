@@ -1,5 +1,5 @@
-#include "rpn_calculator.h"
-#include "math_object.h"
+#include "../include/rpn_calculator.h"
+#include "../include/math_object.h"
 #include <iostream>
 #include <string>
 #include <sstream>

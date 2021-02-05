@@ -1,4 +1,4 @@
-#include "reader.h"
+#include "../include/reader.h"
 #include <iostream>
 
 void reader::read(const std::string str){
