@@ -24,16 +24,23 @@ void translator::infix_to_rpn(std::queue<std::unique_ptr<math_object>> input_que
 
             if ((!operator_stack.empty()) && dynamic_cast<operation*>(operator_stack.top().get()))
                 top_operation = dynamic_cast<operation*>(operator_stack.top().get());
-                
-            while ((!operator_stack.empty() && dynamic_cast<operation*>(operator_stack.top().get()))
-              && ((top_operation->precedence > current_op->precedence) 
-              || (top_operation->precedence == current_op->precedence))){
 
+            bool is_open_bracket = false;
+
+            if (!operator_stack.empty() && dynamic_cast<bracket*>(operator_stack.top().get())){
+                bracket* top_bracket = dynamic_cast<bracket*>(operator_stack.top().get());
+                if (top_bracket->p == bracket::open) is_open_bracket = true;
+            }
+
+            while ((!operator_stack.empty() && (dynamic_cast<operation*>(operator_stack.top().get()))) && !is_open_bracket){
                 rpn_queue.push(std::move(operator_stack.top()));
                 operator_stack.pop();
-
-                if ((!operator_stack.empty()) && dynamic_cast<operation*>(operator_stack.top().get()))                
-                    top_operation = dynamic_cast<operation*>(operator_stack.top().get());
+                if (dynamic_cast<bracket*>(operator_stack.top().get())){
+                    bracket* top_bracket = dynamic_cast<bracket*>(operator_stack.top().get());
+                    if (top_bracket->p == bracket::open){
+                        is_open_bracket = true;
+                    } else is_open_bracket = false;
+                }
             }
             operator_stack.push(std::move(object));
         }
@@ -47,7 +54,7 @@ void translator::infix_to_rpn(std::queue<std::unique_ptr<math_object>> input_que
                 bracket* top_bracket;
                 if ((!operator_stack.empty()) && (dynamic_cast<bracket*>(operator_stack.top().get())))
                     top_bracket = dynamic_cast<bracket*>(operator_stack.top().get());
-                while ((!operator_stack.empty()) && (top_bracket->p != bracket::open)){
+                while ((!operator_stack.empty()) && (!top_bracket || (top_bracket->p == bracket::close))){
                     rpn_queue.push(std::move(operator_stack.top()));
                     operator_stack.pop();
                     if ((!operator_stack.empty()) && (dynamic_cast<bracket*>(operator_stack.top().get())))
